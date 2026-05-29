@@ -1,0 +1,673 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>G6 Enterprise - Dinâmica de Grupo</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body
+    class="flex h-screen overflow-hidden antialiased selection:bg-amber-200 selection:text-amber-900"
+  >
+    <nav
+      class="w-20 md:w-64 bg-panel border-r border-stone-200 flex flex-col justify-between shadow-sm z-20 transition-all duration-300 flex-shrink-0"
+    >
+      <div>
+        <div
+          class="h-16 flex items-center justify-center md:justify-start md:px-6 border-b border-stone-100 bg-amber-50"
+        >
+          <span class="text-2xl mr-2">🏢</span>
+          <span
+            class="font-bold text-lg hidden md:block text-amber-800 tracking-tight"
+            >G6 Enterprise</span
+          >
+        </div>
+        <div class="flex flex-col mt-4 gap-1 px-2" id="nav-menu">
+          <button
+            data-target="sec-context"
+            class="nav-item active flex items-center p-3 md:px-4 rounded-lg md:rounded-l-lg md:rounded-r-none transition-colors text-stone-600 hover:bg-stone-100 hover:text-stone-900 group"
+          >
+            <span class="text-xl group-hover:scale-110 transition-transform"
+              >📘</span
+            >
+            <span class="ml-3 hidden md:block text-sm">Contexto e Desafio</span>
+          </button>
+          <button
+            data-target="sec-role"
+            class="nav-item flex items-center p-3 md:px-4 rounded-lg md:rounded-l-lg md:rounded-r-none transition-colors text-stone-600 hover:bg-stone-100 hover:text-stone-900 group"
+          >
+            <span class="text-xl group-hover:scale-110 transition-transform"
+              >💻</span
+            >
+            <span class="ml-3 hidden md:block text-sm">O Cargo ADS</span>
+          </button>
+          <button
+            data-target="sec-dynamic"
+            class="nav-item flex items-center p-3 md:px-4 rounded-lg md:rounded-l-lg md:rounded-r-none transition-colors text-stone-600 hover:bg-stone-100 hover:text-stone-900 group"
+          >
+            <span class="text-xl group-hover:scale-110 transition-transform"
+              >🎲</span
+            >
+            <span class="ml-3 hidden md:block text-sm">A Dinâmica</span>
+          </button>
+          <button
+            data-target="sec-eval"
+            class="nav-item flex items-center p-3 md:px-4 rounded-lg md:rounded-l-lg md:rounded-r-none transition-colors text-stone-600 hover:bg-stone-100 hover:text-stone-900 group"
+          >
+            <span class="text-xl group-hover:scale-110 transition-transform"
+              >📊</span
+            >
+            <span class="ml-3 hidden md:block text-sm"
+              >Matriz de Avaliação</span
+            >
+          </button>
+          <button
+            data-target="sec-sim"
+            class="nav-item flex items-center p-3 md:px-4 rounded-lg md:rounded-l-lg md:rounded-r-none transition-colors text-stone-600 hover:bg-stone-100 hover:text-stone-900 group"
+          >
+            <span class="text-xl group-hover:scale-110 transition-transform"
+              >📝</span
+            >
+            <span class="ml-3 hidden md:block text-sm">Roteiro Simulação</span>
+          </button>
+        </div>
+      </div>
+      <div
+        class="p-4 border-t border-stone-200 hidden md:block text-xs text-stone-400 text-center"
+      >
+        Estudo de Caso ADS<br />2026
+      </div>
+    </nav>
+
+    <main
+      class="flex-1 overflow-y-auto hide-scroll relative bg-warmbg"
+      id="main-content"
+    >
+      <section
+        id="sec-context"
+        class="content-section p-6 md:p-12 max-w-5xl mx-auto fade-in"
+      >
+        <header class="mb-8 border-b border-stone-200 pb-4">
+          <div
+            class="text-accent font-semibold tracking-wider text-sm uppercase mb-2"
+          >
+            Introdução
+          </div>
+          <h1 class="text-3xl md:text-4xl font-bold text-textmain mb-4">
+            A Cultura G6 Enterprise
+          </h1>
+          <p class="text-lg text-textmuted leading-relaxed">
+            Esta seção apresenta o cenário da G6 Enterprise e o problema
+            identificado nos processos seletivos tradicionais. Explore os
+            cartões abaixo para entender a cultura da empresa e o porquê da
+            adoção de dinâmicas comportamentais inovadoras na área de Tecnologia
+            da Informação.
+          </p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <div
+            class="bg-panel p-6 rounded-xl shadow-sm border border-stone-100 hover:shadow-md transition-shadow cursor-pointer"
+            onclick="toggleCardInfo('info-cultura')"
+          >
+            <div class="text-3xl mb-4">🚀</div>
+            <h3 class="font-bold text-xl mb-2">Cultura Ágil</h3>
+            <p class="text-sm text-stone-600">
+              A G6 foca no desenvolvimento sob demanda e preza pela segurança
+              psicológica e feedback constante.
+            </p>
+            <div
+              id="info-cultura"
+              class="hidden mt-4 pt-4 border-t border-stone-100 text-sm text-stone-700 bg-stone-50 p-3 rounded"
+            >
+              <strong>Metodologias:</strong> Scrum e Kanban exigem alta
+              interação. Não basta saber programar, é preciso saber comunicar
+              impedimentos e sucessos.
+            </div>
+          </div>
+          <div
+            class="bg-panel p-6 rounded-xl shadow-sm border border-stone-100 hover:shadow-md transition-shadow cursor-pointer"
+            onclick="toggleCardInfo('info-problema')"
+          >
+            <div class="text-3xl mb-4">⚠️</div>
+            <h3 class="font-bold text-xl mb-2">O Problema</h3>
+            <p class="text-sm text-stone-600">
+              Candidatos com excelência técnica falhavam em comunicação, empatia
+              e inteligência emocional nos projetos.
+            </p>
+            <div
+              id="info-problema"
+              class="hidden mt-4 pt-4 border-t border-stone-100 text-sm text-stone-700 bg-stone-50 p-3 rounded"
+            >
+              <strong>Impacto:</strong> Atrasos, clima tenso e falha na
+              colaboração horizontal forçaram o RH a reformular a seleção.
+            </div>
+          </div>
+          <div
+            class="bg-panel p-6 rounded-xl shadow-sm border border-stone-100 hover:shadow-md transition-shadow cursor-pointer"
+            onclick="toggleCardInfo('info-solucao')"
+          >
+            <div class="text-3xl mb-4">💡</div>
+            <h3 class="font-bold text-xl mb-2">A Solução</h3>
+            <p class="text-sm text-stone-600">
+              Simular o "Feedback de Integração de 30 Dias" durante a própria
+              entrevista (Sorteio do Reconhecimento).
+            </p>
+            <div
+              id="info-solucao"
+              class="hidden mt-4 pt-4 border-t border-stone-100 text-sm text-stone-700 bg-stone-50 p-3 rounded"
+            >
+              <strong>Por que funciona:</strong> Desarma a competição, avalia
+              oratória imediata e verifica a capacidade de observar o lado
+              positivo do colega.
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-amber-50 border-l-4 border-accent p-6 rounded-r-lg">
+          <h4 class="font-bold text-amber-900 mb-2">O Desafio do RH</h4>
+          <p class="text-amber-800 text-sm">
+            Como identificar quem possui as soft skills ideais antes da
+            contratação? Ao invés de perguntas teóricas ("Você trabalha bem em
+            equipe?"), a G6 Enterprise decidiu colocar os candidatos em uma
+            situação real de vulnerabilidade e reconhecimento mútuo.
+          </p>
+        </div>
+      </section>
+
+      <section
+        id="sec-role"
+        class="content-section p-6 md:p-12 max-w-5xl mx-auto hidden fade-in"
+      >
+        <header class="mb-8 border-b border-stone-200 pb-4">
+          <div
+            class="text-accent font-semibold tracking-wider text-sm uppercase mb-2"
+          >
+            Perfil do Profissional
+          </div>
+          <h1 class="text-3xl md:text-4xl font-bold text-textmain mb-4">
+            Desenvolvedor(a) Full Stack
+          </h1>
+          <p class="text-lg text-textmuted leading-relaxed">
+            Nesta seção, analisamos o equilíbrio necessário entre habilidades
+            técnicas (Hard Skills) e comportamentais (Soft Skills) para a vaga
+            escolhida. Interaja com o gráfico de radar para visualizar a
+            importância de cada competência.
+          </p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <div class="order-2 lg:order-1">
+            <div class="space-y-6">
+              <div
+                class="bg-panel p-5 rounded-xl shadow-sm border-l-4 border-stone-400"
+              >
+                <h3 class="font-bold text-lg mb-2 flex items-center">
+                  <span class="mr-2">⚙️</span> Hard Skills
+                </h3>
+                <ul class="text-sm text-stone-600 space-y-2 ml-6 list-disc">
+                  <li>
+                    <strong>Front-end:</strong> React, Angular, interfaces
+                    responsivas.
+                  </li>
+                  <li>
+                    <strong>Back-end:</strong> Node.js, C#, Java, arquitetura de
+                    APIs.
+                  </li>
+                  <li><strong>Dados:</strong> Bancos SQL e NoSQL.</li>
+                  <li>
+                    <strong>Ferramentas:</strong> Controle de versão (Git).
+                  </li>
+                </ul>
+              </div>
+              <div
+                class="bg-panel p-5 rounded-xl shadow-sm border-l-4 border-accent"
+              >
+                <h3 class="font-bold text-lg mb-2 flex items-center">
+                  <span class="mr-2">🧠</span> Soft Skills (Foco da Dinâmica)
+                </h3>
+                <ul class="text-sm text-stone-600 space-y-2 ml-6 list-disc">
+                  <li>
+                    <strong>Comunicação Assertiva:</strong> Traduzir requisitos
+                    técnicos para a equipe de negócios.
+                  </li>
+                  <li>
+                    <strong>Empatia e Escuta Ativa:</strong> Compreender dores
+                    de usuários e colegas.
+                  </li>
+                  <li>
+                    <strong>Feedback:</strong> Fornecer e receber críticas
+                    construtivas (Inteligência Emocional).
+                  </li>
+                  <li>
+                    <strong>Adaptabilidade:</strong> Ajustar-se a mudanças ágeis
+                    de escopo.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="order-1 lg:order-2 bg-panel p-4 rounded-xl shadow-sm border border-stone-100 flex flex-col"
+          >
+            <h3 class="text-center font-bold text-stone-700 mb-4">
+              Mapa de Competências Esperadas
+            </h3>
+            <div class="chart-container">
+              <canvas id="skillsChart"></canvas>
+            </div>
+            <p class="text-xs text-center text-stone-400 mt-4">
+              Nota: Valores representam a expectativa da G6 (1-100).
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="sec-dynamic"
+        class="content-section p-6 md:p-12 max-w-5xl mx-auto hidden fade-in"
+      >
+        <header class="mb-8 border-b border-stone-200 pb-4">
+          <div
+            class="text-accent font-semibold tracking-wider text-sm uppercase mb-2"
+          >
+            Metodologia
+          </div>
+          <h1 class="text-3xl md:text-4xl font-bold text-textmain mb-4">
+            Conexão G6: O Sorteio
+          </h1>
+          <p class="text-lg text-textmuted leading-relaxed">
+            Conheça o funcionamento da dinâmica "Sorteio do Reconhecimento".
+            Clique nos passos do processo abaixo para entender como a atividade
+            flui, seus objetivos e as possíveis dificuldades contornadas.
+          </p>
+        </header>
+
+        <div class="flex flex-col lg:flex-row gap-8">
+          <div class="lg:w-1/3">
+            <div
+              class="bg-panel rounded-xl shadow-sm border border-stone-200 overflow-hidden"
+            >
+              <div class="bg-stone-800 text-white p-4">
+                <h3 class="font-bold text-lg">Ficha Técnica</h3>
+              </div>
+              <ul class="divide-y divide-stone-100 text-sm">
+                <li class="p-4 flex justify-between">
+                  <span class="text-stone-500">Tempo:</span>
+                  <span class="font-semibold text-stone-800">30 - 40 min</span>
+                </li>
+                <li class="p-4 flex justify-between">
+                  <span class="text-stone-500">Participantes:</span>
+                  <span class="font-semibold text-stone-800">10 a 15</span>
+                </li>
+                <li class="p-4 flex flex-col gap-1">
+                  <span class="text-stone-500">Materiais:</span>
+                  <span class="font-semibold text-stone-800"
+                    >Urna/Caderno, papéis com nomes, cronômetro.</span
+                  >
+                </li>
+                <li class="p-4 flex flex-col gap-1">
+                  <span class="text-stone-500">Solução de Problemas:</span>
+                  <span class="font-semibold text-accent text-xs"
+                    >Uso de "Cards de Gatilho" e Icebreaker para amenizar
+                    timidez.</span
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="lg:w-2/3">
+            <div
+              class="space-y-4 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-stone-300 before:to-transparent"
+            >
+              <div
+                class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active cursor-pointer"
+                onclick="showStepDetail(1)"
+              >
+                <div
+                  class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-warmbg bg-accent text-white font-bold shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow transition-colors"
+                  id="step-btn-1"
+                >
+                  1
+                </div>
+                <div
+                  class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-panel p-4 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow"
+                >
+                  <h4 class="font-bold text-stone-800">Contextualização</h4>
+                  <p class="text-xs text-stone-500 mt-1">
+                    Clique para ler os detalhes
+                  </p>
+                </div>
+              </div>
+
+              <div
+                class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group cursor-pointer"
+                onclick="showStepDetail(2)"
+              >
+                <div
+                  class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-warmbg bg-stone-300 text-stone-600 font-bold shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow transition-colors"
+                  id="step-btn-2"
+                >
+                  2
+                </div>
+                <div
+                  class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-panel p-4 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow"
+                >
+                  <h4 class="font-bold text-stone-800">O Sorteio</h4>
+                  <p class="text-xs text-stone-500 mt-1">
+                    Clique para ler os detalhes
+                  </p>
+                </div>
+              </div>
+
+              <div
+                class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group cursor-pointer"
+                onclick="showStepDetail(3)"
+              >
+                <div
+                  class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-warmbg bg-stone-300 text-stone-600 font-bold shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow transition-colors"
+                  id="step-btn-3"
+                >
+                  3
+                </div>
+                <div
+                  class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-panel p-4 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow"
+                >
+                  <h4 class="font-bold text-stone-800">O Reconhecimento</h4>
+                  <p class="text-xs text-stone-500 mt-1">
+                    Clique para ler os detalhes
+                  </p>
+                </div>
+              </div>
+
+              <div
+                class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group cursor-pointer"
+                onclick="showStepDetail(4)"
+              >
+                <div
+                  class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-warmbg bg-stone-300 text-stone-600 font-bold shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow transition-colors"
+                  id="step-btn-4"
+                >
+                  4
+                </div>
+                <div
+                  class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-panel p-4 rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-shadow"
+                >
+                  <h4 class="font-bold text-stone-800">Debriefing</h4>
+                  <p class="text-xs text-stone-500 mt-1">
+                    Clique para ler os detalhes
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="mt-8 bg-white p-6 rounded-xl border-l-4 border-accent shadow-sm"
+              id="step-detail-container"
+            >
+              <h4 class="font-bold text-lg text-accent mb-2" id="step-title">
+                Etapa 1: Contextualização
+              </h4>
+              <p class="text-stone-700 leading-relaxed text-sm" id="step-desc">
+                O facilitador explica o cenário: "Imaginem que vocês foram
+                contratados recentemente pela G6 Enterprise e completaram o
+                primeiro mês de trabalho juntos. Hoje faremos nosso ritual de
+                feedback positivo para acelerar a integração." Isso coloca o
+                candidato em modo corporativo, não de competição.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="sec-eval"
+        class="content-section p-6 md:p-12 max-w-5xl mx-auto hidden fade-in"
+      >
+        <header class="mb-8 border-b border-stone-200 pb-4">
+          <div
+            class="text-accent font-semibold tracking-wider text-sm uppercase mb-2"
+          >
+            Análise de Candidatos
+          </div>
+          <h1 class="text-3xl md:text-4xl font-bold text-textmain mb-4">
+            Critérios de Avaliação
+          </h1>
+          <p class="text-lg text-textmuted leading-relaxed">
+            Como o RH da G6 avalia o comportamento durante a dinâmica? Selecione
+            um critério na tabela para destacar sua representatividade no
+            gráfico visual e ler a descrição do comportamento esperado para
+            atingir a nota máxima.
+          </p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+          <div class="lg:col-span-3">
+            <div
+              class="bg-panel rounded-xl shadow-sm border border-stone-200 overflow-hidden"
+            >
+              <table class="w-full text-left text-sm">
+                <thead class="bg-stone-100 text-stone-700">
+                  <tr>
+                    <th class="p-4 font-semibold">Critério (Clique)</th>
+                    <th class="p-4 font-semibold">Descrição Esperada</th>
+                    <th class="p-4 font-semibold text-center">Nota</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-stone-100">
+                  <tr
+                    class="hover:bg-amber-50 cursor-pointer transition-colors bg-amber-50 eval-row"
+                    onclick="highlightEvalChart(0, this)"
+                  >
+                    <td class="p-4 font-bold text-stone-800">
+                      🎙️ Clareza e Oratória
+                    </td>
+                    <td class="p-4 text-stone-600">
+                      Expressa-se de forma clara, audível, com boa postura e
+                      vocabulário.
+                    </td>
+                    <td class="p-4 text-center font-mono">1-5</td>
+                  </tr>
+                  <tr
+                    class="hover:bg-amber-50 cursor-pointer transition-colors eval-row"
+                    onclick="highlightEvalChart(1, this)"
+                  >
+                    <td class="p-4 font-bold text-stone-800">
+                      🤝 Empatia / Sensibilidade
+                    </td>
+                    <td class="p-4 text-stone-600">
+                      Demonstra percepção real das qualidades, evitando clichês
+                      vazios.
+                    </td>
+                    <td class="p-4 text-center font-mono">1-5</td>
+                  </tr>
+                  <tr
+                    class="hover:bg-amber-50 cursor-pointer transition-colors eval-row"
+                    onclick="highlightEvalChart(2, this)"
+                  >
+                    <td class="p-4 font-bold text-stone-800">
+                      👂 Escuta Ativa
+                    </td>
+                    <td class="p-4 text-stone-600">
+                      Presta atenção genuína enquanto colegas falam, postura
+                      receptiva.
+                    </td>
+                    <td class="p-4 text-center font-mono">1-5</td>
+                  </tr>
+                  <tr
+                    class="hover:bg-amber-50 cursor-pointer transition-colors eval-row"
+                    onclick="highlightEvalChart(3, this)"
+                  >
+                    <td class="p-4 font-bold text-stone-800">
+                      ❤️ Inteligência Emocional
+                    </td>
+                    <td class="p-4 text-stone-600">
+                      Reage de forma madura ao receber elogio (sem
+                      constrangimento ou soberba).
+                    </td>
+                    <td class="p-4 text-center font-mono">1-5</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div
+              class="mt-4 flex gap-4 text-xs text-stone-500 bg-stone-100 p-3 rounded"
+            >
+              <div>
+                <span class="font-bold text-red-500">1-2:</span> Abaixo do
+                esperado
+              </div>
+              <div>
+                <span class="font-bold text-amber-500">3:</span> Atende
+                (Satisfatório)
+              </div>
+              <div>
+                <span class="font-bold text-green-600">4-5:</span> Excede
+                expectativas
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="lg:col-span-2 bg-panel p-4 rounded-xl shadow-sm border border-stone-100"
+          >
+            <h3 class="text-center font-bold text-stone-700 mb-2">
+              Peso da Avaliação
+            </h3>
+            <div class="chart-container" style="height: 300px">
+              <canvas id="evalChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="sec-sim"
+        class="content-section p-6 md:p-12 max-w-5xl mx-auto hidden fade-in mb-10"
+      >
+        <header class="mb-8 border-b border-stone-200 pb-4">
+          <div
+            class="text-accent font-semibold tracking-wider text-sm uppercase mb-2"
+          >
+            Prática
+          </div>
+          <h1 class="text-3xl md:text-4xl font-bold text-textmain mb-4">
+            Roteiro de Simulação em Sala
+          </h1>
+          <p class="text-lg text-textmuted leading-relaxed">
+            Este é o guia passo-a-passo para o grupo aplicar a simulação perante
+            a turma. Siga o roteiro interativo, marcando os passos conforme
+            planejam a apresentação.
+          </p>
+        </header>
+
+        <div class="bg-panel rounded-xl shadow-sm border border-stone-200 p-6">
+          <div class="space-y-4" id="checklist">
+            <label
+              class="flex items-start p-4 rounded-lg border border-stone-100 hover:bg-stone-50 cursor-pointer transition-colors"
+            >
+              <input
+                type="checkbox"
+                class="mt-1 w-5 h-5 text-accent rounded border-stone-300 focus:ring-accent"
+                onclick="updateChecklist(this)"
+              />
+              <div class="ml-4">
+                <span class="font-bold block text-stone-800"
+                  >1. Abertura e Pitch (3 min)</span
+                >
+                <span class="text-sm text-stone-500"
+                  >Iniciem como a consultoria da G6 Enterprise. Apresentem a
+                  empresa e a necessidade de devs comunicativos.</span
+                >
+              </div>
+            </label>
+
+            <label
+              class="flex items-start p-4 rounded-lg border border-stone-100 hover:bg-stone-50 cursor-pointer transition-colors"
+            >
+              <input
+                type="checkbox"
+                class="mt-1 w-5 h-5 text-accent rounded border-stone-300 focus:ring-accent"
+                onclick="updateChecklist(this)"
+              />
+              <div class="ml-4">
+                <span class="font-bold block text-stone-800"
+                  >2. Explicação das Regras (2 min)</span
+                >
+                <span class="text-sm text-stone-500"
+                  >Expliquem à turma as regras do Sorteio do Reconhecimento.
+                  Mencionem que o foco é positivo e construtivo.</span
+                >
+              </div>
+            </label>
+
+            <label
+              class="flex items-start p-4 rounded-lg border border-stone-100 hover:bg-stone-50 cursor-pointer transition-colors"
+            >
+              <input
+                type="checkbox"
+                class="mt-1 w-5 h-5 text-accent rounded border-stone-300 focus:ring-accent"
+                onclick="updateChecklist(this)"
+              />
+              <div class="ml-4">
+                <span class="font-bold block text-stone-800"
+                  >3. Execução Prática (10 - 15 min)</span
+                >
+                <span class="text-sm text-stone-500"
+                  >Convidem 8 a 10 colegas (ou o próprio grupo). Passem a urna,
+                  controlem o tempo de falas (1m30s max).</span
+                >
+              </div>
+            </label>
+
+            <label
+              class="flex items-start p-4 rounded-lg border border-stone-100 hover:bg-stone-50 cursor-pointer transition-colors"
+            >
+              <input
+                type="checkbox"
+                class="mt-1 w-5 h-5 text-accent rounded border-stone-300 focus:ring-accent"
+                onclick="updateChecklist(this)"
+              />
+              <div class="ml-4">
+                <span class="font-bold block text-stone-800"
+                  >4. Conclusão (5 min)</span
+                >
+                <span class="text-sm text-stone-500"
+                  >Apresentem a tabela de critérios que usariam na vida real e
+                  abram para dúvidas do professor/turma.</span
+                >
+              </div>
+            </label>
+          </div>
+
+          <div
+            class="mt-6 pt-4 border-t border-stone-100 flex items-center justify-between"
+          >
+            <span class="text-sm font-bold text-stone-600"
+              >Progresso da Preparação:</span
+            >
+            <div class="w-2/3 bg-stone-200 rounded-full h-2.5 ml-4">
+              <div
+                class="bg-accent h-2.5 rounded-full transition-all duration-500"
+                style="width: 0%"
+                id="progress-bar"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="./index.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="tailwind-config.js"></script>
+  </body>
+</html>
